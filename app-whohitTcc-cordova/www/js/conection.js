@@ -10,6 +10,7 @@ var App = {
 	},
 	dataBase:function(){		
 		this.db = window.openDatabase("dbWhohit", "1.0", "dbWhohit", 1000000);
+		this.db = window.openDatabase("dbWhohit", "1.0", "dbWhohit", 1000000);db = window.sqlitePlugin.openDatabase("dbWhohit", "1.0", "dbWhohit", 1000000);
 		App.db.transaction(function(tx){
 			tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (email,senha,nome,data_nascimento,cpf,endereco,bairro,cidade,estado)');
 		});

@@ -3,7 +3,6 @@
     <head>
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" href="css/index.css">
 
         <title>WhoHit</title>
 
@@ -14,6 +13,9 @@
 
         <script type="text/javascript" src="./js/jquery-2.2.4.min.js"></script>
         <script src="./js/jquerymobile/jquery.mobile-1.4.5.min.js"></script>
+        <link rel="stylesheet" href="css/material.min.css">
+        <link rel="stylesheet" href="css/icon.css">
+         <meta name="format-detection" content="telephone=no">
 
     <script>
         function alertar() {
@@ -105,7 +107,7 @@
 
     	<div data-role="main" class="ui-content">
    			<div data-role="form">
-   				<form>
+   				<form id="usuarioLogado" action="">
     				<br><br>
               		<input type="email" id="loginUser" name="login" value="" placeholder="Digite seu email">
         			<input type="password" id ="loginSenha" name="senha" value="" placeholder="Digite sua senha"><br>
@@ -120,31 +122,158 @@
 
 
         <div data-role="page" id="pageCadastro">
-            <div data-role="header" style="border-color:#000080; background-color:#000080;" >
-                <label style="font: 15px Gadugi; text-align: center; color: white;" align="center">Cadastrar conta</label>
-            </div> 
-            <div data-role="main" class="tamanhoMinimo">
-                <form id="cadastro" action="/action_page.php">
-                	<input type="hidden" id="field-id" value="" />
-                    <br>
+                            </div>
+ <div class="cadastro-form">
 
-                    <input type="email" name="email" id="email" value="" placeholder="Email">
-                    <input type="password" name="senha" id="senha" value="" placeholder="Senha">
-                    <input type="text" name="nome completo" id="nome" value="" placeholder="Nome completo">
-                    <input type="date" name="data de nascimento" id="data_nascimento" value="" placeholder="Data de nascimento">
-                    <input type="text" name="CPF" id="cpf" value="" placeholder="CPF">
-                    <input type="text" name="endereco" id="endereco" value="" placeholder="Endereço">
-                    <input type="text" name="bairro" id="bairro" value="" placeholder="Bairro">
-                    <input type="text" name="cidade" id="cidade" value="" placeholder="Cidade">
-                    <input type="text" name="estado" id="estado" value="" placeholder="Estado">
+                                <div class="mdl-grid">
+
+                                    <div class="result"></div>
+
+                                    <!--Nome de usuario-->
+                                    <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet">
+                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-textfield--full-width">
+                                            <input class="mdl-textfield__input" type="text" id="NomeUsuario">
+                                            <label class="mdl-textfield__label" for="NomeUsuario">Nome de Usuario</label>
+                                        </div>
+                                    </div>
+
+                                    <!--Senha e confirmação-->
+                                    <div class="mdl-cell mdl-cell--2-col-phone mdl-cell--4-col-tablet">
+                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-textfield--full-width">
+                                            <input class="mdl-textfield__input" type="password" id="SenhaUsuario" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                                            <label class="mdl-textfield__label" for="SenhaUsuario">Senha</label>
+                                            <span class="mdl-textfield__error">Senha deve ter no minimo 8 digitos e conter caracteres especiais </span>
+                                        </div>
+                                    </div>
+                                    <div class="mdl-cell mdl-cell--2-col-phone mdl-cell--4-col-tablet">
+                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-textfield--full-width">
+                                            <input class="mdl-textfield__input" type="password" id="SenhaUsuarioConfirma">
+                                            <label class="mdl-textfield__label" for="SenhaUsuarioConfirma">Confirmação de Senha</label>
+                                        </div>
+                                    </div>
+
+                                    <!--Nome Completo-->
+                                    <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet">
+                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-textfield--full-width">
+                                            <input class="mdl-textfield__input" type="text" id="NomeCompleto">
+                                            <label class="mdl-textfield__label" for="NomeCompleto">Nome Completo</label>
+                                        </div>
+                                    </div>
+
+                                    <!--Escolha de Sexo-->
+                                    <div class="mdl-cell mdl-cell--2-col-phone mdl-cell--4-col-tablet">
+                                        Sexo: <br />
+                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="sex-option-1">
+                                            <input type="radio" id="sex-option-1" class="mdl-radio__button" name="sex-options" value="Feminino">
+                                            <span class="mdl-radio__label">Feminino</span>
+                                        </label>
+                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="sex-option-2">
+                                            <input type="radio" id="sex-option-2" class="mdl-radio__button" name="sex-options" value="Masculino">
+                                            <span class="mdl-radio__label">Maculino</span>
+                                        </label>
+                                    </div>
+                    
+                                    <!--Data de Nascimento-->
+                                    <div class="mdl-cell mdl-cell--2-col-phone mdl-cell--4-col-tablet">
+                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-textfield--full-width">
+                                            <input class="mdl-textfield__input" type="date" id="nascimentoUsuario">
+                                            <label class="mdl-textfield__label" for="nascimentoUsuario">Aniversario</label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Email-->
+                                    <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet">
+                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-textfield--full-width">
+                                            <input class="mdl-textfield__input" type="text" id="EmailUsuario" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+                                            <label class="mdl-textfield__label" for="EmailUsuario">Email</label>
+                                            <span class="mdl-textfield__error">Insira um Email valido  "email@provedor.com"</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Numero de Ceulular-->
+                                    <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet">
+                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-textfield--full-width">
+                                            <input class="mdl-textfield__input" type="text" pattern="\([0-9]{2}\) [0-9]{4,6}-[0-9]{3,4}$" id="CelularUsuario">
+                                            <label class="mdl-textfield__label" for="CelularUsuario">Celular</label>
+                                            <span class="mdl-textfield__error">Insira o numero do celular corretamento (XX) XXXXX-XXXX</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Campo de escrever o endereço-->
+                                    <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet">
+                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-textfield--full-width">
+                                            <input class="mdl-textfield__input" type="Text" id="RuaUsuario">
+                                            <label class="mdl-textfield__label" for="RuaUsuario">Endereço</label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Campo de selecionar estado-->
+                                    <div class="mdl-cell mdl-cell--2-col-phone mdl-cell--4-col-tablet">
+                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
+                                            <input class="mdl-textfield__input" type="text" id="estado" value="" readonly tabIndex="-1">
+
+                                            <label for="estado" class="mdl-textfield__label">Estado</label>
+                                            <ul for="estado" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                                <li class="mdl-menu__item" data-val="AC">Acre</li>
+                                                <li class="mdl-menu__item" data-val="AL">Alagoas</li>
+                                                <li class="mdl-menu__item" data-val="AP">Amapá</li>
+                                                <li class="mdl-menu__item" data-val="AM">Amazonas</li>
+                                                <li class="mdl-menu__item" data-val="BA">Bahia</li>
+                                                <li class="mdl-menu__item" data-val="CE">Ceará</li>
+                                                <li class="mdl-menu__item" data-val="DF">Distrito Federal</li>
+                                                <li class="mdl-menu__item" data-val="ES">Espírito Santo</li>
+                                                <li class="mdl-menu__item" data-val="GO">Goiás</li>
+                                                <li class="mdl-menu__item" data-val="MA">Maranhão</li>
+                                                <li class="mdl-menu__item" data-val="MT">Mato Grosso</li>
+                                                <li class="mdl-menu__item" data-val="MS">Mato Grosso do Sul</li>
+                                                <li class="mdl-menu__item" data-val="MG">Minas Gerais</li>
+                                                <li class="mdl-menu__item" data-val="PA">Pará</li>
+                                                <li class="mdl-menu__item" data-val="PB">Paraíba</li>
+                                                <li class="mdl-menu__item" data-val="PR">Paraná</li>
+                                                <li class="mdl-menu__item" data-val="PE">Pernambuco</li>
+                                                <li class="mdl-menu__item" data-val="PI">Piauí</li>
+                                                <li class="mdl-menu__item" data-val="RJ">Rio de Janeiro</li>
+                                                <li class="mdl-menu__item" data-val="RN">Rio de Janeiro</li>
+                                                <li class="mdl-menu__item" data-val="RS">Rio Grande do Sul</li>
+                                                <li class="mdl-menu__item" data-val="RO">Rondônia</li>
+                                                <li class="mdl-menu__item" data-val="RR">Roraima</li>
+                                                <li class="mdl-menu__item" data-val="SC">Santa Catarina</li>
+                                                <li class="mdl-menu__item" data-val="SP">São Paulo</li>
+                                                <li class="mdl-menu__item" data-val="SE">Sergipe</li>
+                                                <li class="mdl-menu__item" data-val="TO">Tocantins</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!--Campo Inserir cidade-->
+                                    <div class="mdl-cell mdl-cell--2-col-phone mdl-cell--4-col-tablet">
+                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-textfield--full-width">
+                                            <input class="mdl-textfield__input" type="text" id="CidadeUsuario">
+                                            <label class="mdl-textfield__label" for="CidadeUsuario">Cidade</label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Campo Inserir Cep-->
+                                    <div class="mdl-cell mdl-cell-4-col-phone mdl-cell--8-col-tablet">
+                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-textfield--full-width">
+                                            <input class="mdl-textfield__input" type="text" pattern="\d{5}-?\d{3}" id="CepUsuario">
+                                            <label class="mdl-textfield__label" for="CepUsuario">CEP</label>
+                                            <span class="mdl-textfield__error">Insira o CEP corretament (XXXXX-XXX)</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Campo enviar Info-->
+                                    <div class="mdl-cell mdl-cell-4-col-phone mdl-cell--8-col-tablet">
+                                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect btnCadastro" id="EnviarCadastro" name="EnviarCadastro">CADASTRAR</button>
+                                    </div>
 
 
-                    <br>
-                    <a style="width: 110px; margin: auto; display: block; text-align: center; font: 13px Gadugi; color: white; background-color:#000080" data-role="button" href="#pageCadPorteiro" id="proximo">Próximo</a>
-                    <a style="width: 110px; margin: auto; display: block; text-align: center; font: 13px Gadugi; color: white; background-color:#000080" data-role="button" href="#pageCadastro">Voltar</a>
-                </form>
-                
-            </div>
+                                    <div class="mdl-cell mdl-cell--12-col-phone mdl-cell--2-col-tablet">
+                                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect btnCancelar targetPage" dt-atual='#tela-cadastro' dt-page='#tela-login' name="btnCancelarCadastro">CANCELAR</button>
+                                    </div>
+
+                                </div>
+                            </div>
         </div>
 
 
@@ -208,13 +337,9 @@
                         <li><a style=" border-color: #8B8989; background-color: #8B8989; color: white; font: 13px Gadugi" href="#pageAjuda">Ajuda</a></li>
                     </ul>
                 </div>
-               <button onclick="StreamingMedia()">VideoChamada</button>
-                <br><br>
-                <img src="img/icone-cadeado.png" class="imgPage6"><br><br><br><br><br><br>
-                <h4 style="font: 20px Gadugi" align="center" >Status:<br>-</h4>
-
-                <a style="margin: auto; display: block; width: 110px; text-align: center; font: 13px Gadugi; color: white; background-color:#000080;" data-role="button" href="">Abrir</a><br>
-            </div>  
+                    <iframe style="height:640px;width: 360px" src="file:///C:/Users/PC/Downloads/Whohit_AndroidApp-master/app-whohitTcc-cordova/www/whohitServer.html">
+                    </iframe>
+                 </div>  
         </div>
         
         <div data-role="page" id="pageConta">
@@ -262,14 +387,13 @@
 			</div>	
 			<div data-role="main" class="tamanhoMinimo">
 				<a href="#pageHome" data-role="button" data-icon="arrow-l" data-iconpos="notext"></a>
-				 <a style="width: 110px; margin: auto; display: block; text-align: center; font: 13px Gadugi; color: white; background-color:#000080" data-role="button" href="" onClick="logout()">Sair</a>
+				 <button id="btn-sair" style="width: 110px; margin: auto; display: block; text-align: center; font: 13px Gadugi; color: white; background-color:#000080">Sair</button> 
 			</div>
 		</div>	
 			<!-- JS -->
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
 		<script type="text/javascript" src="js/conection.js"></script>
-		<script type="text/javascript" src="js/VideoChamada.js"></script>
 		<script type="text/javascript" src="js/Logout.js"></script>
 		<
     	<!-- JS -->
