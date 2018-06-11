@@ -4,28 +4,56 @@ var App = {
 		document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
 	},
 	//Metodo handler
-	onDeviceReady:function(){
-		//this.dataBase();
-		this.insertValues();
-	},
-	dataBase:function(){		
-		this.db = window.openDatabase("dbWhohit", "1.0", "dbWhohit", 1000000);
-		this.db = window.openDatabase("dbWhohit", "1.0", "dbWhohit", 1000000);db = window.sqlitePlugin.openDatabase("dbWhohit", "1.0", "dbWhohit", 1000000);
-		App.db.transaction(function(tx){
-			tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (email,senha,nome,data_nascimento,cpf,endereco,bairro,cidade,estado)');
-		});
-	},
-	insertValues:function(){
-		document.getElementById('proximo').addEventListener('click', function(){
-			var addDados = 'INSERT INTO usuario (email,senha,nome,data_nascimento,cpf,endereco,bairro,cidade,estado) VALUES ("' + document.getElementById('email').value + '","' + document.getElementById('senha').value + '","' + document.getElementById('nome').value +
-					'","' + document.getElementById('data_nascimento').value + '","' + document.getElementById('cpf').value + '","' + document.getElementById('endereco').value + '","' + document.getElementById('bairro').value + '","' + document.getElementById('cidade').value + 
-					'","' + document.getElementById('estado').value +'")';
-			App.dataBase();
-			App.db.transaction(function(tx){
-				tx.executeSql(addDados);
-			});
-		}, false);
-	}
+	onDeviceReady:function() {
+	    this.createDatabase();
+        document.getElementById('proximo').addEventListener('click', App.insertValues);
+        document.getElementById('btnEntrar').addEventListener('click', App.newLogin);
+    }
+	,
+    createDatabase: function(){
+	    App.db = window.openDatabase("dbWhohit", "1.0", "dbWhohit", 1000000);
+        this.db.transaction(function(tx){
+            tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (email,senha,nome,data_nascimento,cpf unique,endereco,bairro,cidade,estado)');
+        });
+    },
+    newLogin:function(){
+        App.db.transaction(function (tx){
+            var ssql = "select * from usuario where email = '" + document.getElementById('loginUser').value + "' AND senha = '"+ document.getElementById('loginSenha').value +"'";
+            alert(ssql);
+            tx.executeSql(ssql, [], function (tx, result) {
+                if(result.rows.length) {
+                    document.getElementById('txtNome').value = result.rows[0].nome;
+                    document.getElementById('txtEmail').value = result.rows[0].email;
+                    document.getElementById('txtEndereco').value = result.rows[0].endereco;
+                    document.getElementById('txtBairro').value = result.rows[0].bairro;
+                    document.getElementById('txtCidade').value = result.rows[0].cidade;
+                    document.getElementById('txtEstado').value = result.rows[0].estado;
+                    console.log(result);
+                    $.mobile.changePage("#pageHome");
+                }
+                else{
+                    alert("A porra do login ou senha nao bate karalho");
+                }
+            });
+        });
+    },
+	insertValues:function() {
+	    var addDados = 'INSERT INTO usuario (email,senha,nome,data_nascimento,cpf,endereco,bairro,cidade,estado) VALUES ("' + document.getElementById('email').value + '","' + document.getElementById('senha').value + '","' + document.getElementById('nome').value +
+            '","' + document.getElementById('data_nascimento').value + '","' + document.getElementById('cpf').value + '","' + document.getElementById('endereco').value + '","' + document.getElementById('bairro').value + '","' + document.getElementById('cidade').value +
+            '","' + document.getElementById('estado').value + '")';
+	    App.db.transaction(function (tx){
+	        tx.executeSql(addDados);
+            tx.executeSql("select * from usuario where cpf = '" + document.getElementById('cpf').value + "'", [], function (tx, result) {
+                document.getElementById('txtNome').value = result.rows[0].nome;
+                document.getElementById('txtEmail').value = result.rows[0].email;
+                document.getElementById('txtEndereco').value = result.rows[0].endereco;
+                document.getElementById('txtBairro').value = result.rows[0].bairro;
+                document.getElementById('txtCidade').value = result.rows[0].cidade;
+                document.getElementById('txtEstado').value = result.rows[0].estado;
+                console.log(result);
+            });
+        });
+    }
 	/*
 		$(document).ready( function(){			
             document.addEventListener("deviceready", function () {
